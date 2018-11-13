@@ -1,0 +1,9 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: acomTakeHomeTest/index.html
+  upload: acomTakeHomeTest/index.html
+- url: /
+  static_dir: acomTakeHomeTest
