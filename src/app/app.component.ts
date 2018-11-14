@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'acomTakeHomeTest';
+  title = 'A-Commerce Take Home Test';
   randomNumbers = new Array();
   digit = 1;
   startRange = 1;
