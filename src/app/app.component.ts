@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent {
   constructor() {
     this.Math = Math;
   }
+
   onSubmit() {
     this.submitted = true;
     this.getRandom();
@@ -30,9 +31,9 @@ export class AppComponent {
 
   private getRandom(): void {
     this.noOfRetry = 0;
-    for (let i = this.startRange ; i <= this.endRange; i++) {
+    for (let i = this.startRange; i <= this.endRange; i++) {
       let isRepeat = true;
-      console.log('i = '  + i);
+      console.log('i = ' + i);
       while (isRepeat) {
         const n = this.getNextRandomNumber();
         const strNumber = n.toString().padStart(this.digit, '0');
@@ -41,12 +42,12 @@ export class AppComponent {
           this.randomNumbers.push(strNumber);
           isRepeat = false;
         } else {
-          console.log('Found duplicate number.. re-random' );
+          console.log('Found duplicate number.. re-random');
           isRepeat = true;
           this.noOfRetry++;
           if (this.noOfRetry > this.MAX_RETRY) {
             isRepeat = false;
-            console.log('Exceed maximum number of retry.' );
+            console.log('Exceed maximum number of retry.');
           }
         }
       }
