@@ -1,60 +1,72 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div style="text-align:center">
+        <h1>
+          {{title}}
+        </h1>
+      </div>
+      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+        <div class="form-group">
+          <label for="digit">Enter number of digit</label>
+          <input type="number" class="form-control" id="digit" required [(ngModel)] = "digit" name="digit">
+          <div [hidden]="digit >= 1"  class="alert alert-danger">Value should start from 1</div>
+        </div>
 
+        <div class="form-group">
+          <label for="startRange">Range start from.</label>
+
+          <input type="number" class="form-control" id="startRange" required [(ngModel)] = "startRange" name="startRange">
+          <div [hidden]="startRange >= 1"  class="alert alert-danger">Value should start from 1</div>
+          <div [hidden]="startRange < endRange"  class="alert alert-danger">Invalid Range</div>
+          <div [hidden]="startRange < Math.pow(10, digit)"  class="alert alert-danger">Too much value</div>
+          <!--<label><i>Note: Range MUST not exceed <strong>{{Math.pow(10, digit) - 1}}</strong></i></label>-->
+        </div>
+
+
+        <div class="form-group">
+          <label for="endRange">Range end from.</label>
+          <input type="number" class="form-control" id="endRange" required [(ngModel)] = "endRange" name="endRange">
+          <div [hidden]="endRange >= 1"  class="alert alert-danger">Value should start from 1</div>
+          <div [hidden]="endRange <= Math.pow(10, digit) - 1" class="alert alert-danger">Invalid End value</div>
+          <div [hidden]="(endRange - startRange) < 100000" class="alert alert-warning">Warning: range more than 100,000 could slow down your machine.</div>
+        </div>
+
+        <button type="submit" class="btn btn-success"  [disabled]="!heroForm.valid || startRange > endRange || endRange > Math.pow(10, digit) - 1 ">Submit</button>
+        <button type="button" class="btn" (click)="doReset()" >Reset</button>
+      </form>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+
+      <div *ngIf="submitted == false">
+        <div *ngIf="randomNumbers.length > 0">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">Random Numbers with number of retry for duplicated number: {{noOfRetry}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let randomNumber of randomNumbers">
+              <td>{{randomNumber}}</td>
+
+            </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
 </div>
 
-<form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-  <div class="form-group">
-    <label for="digit">Enter number of digit</label>
-    <input type="number" class="form-control" id="digit" required [(ngModel)] = "digit" name="digit">
-    <div [hidden]="digit >= 1"  class="alert alert-danger">Value should start from 1</div>
-  </div>
-
-  <div class="form-group">
-    <label for="startRange">Range start from.</label>
-
-    <input type="number" class="form-control" id="startRange" required [(ngModel)] = "startRange" name="startRange">
-    <div [hidden]="startRange >= 1"  class="alert alert-danger">Value should start from 1</div>
-    <div [hidden]="startRange < endRange"  class="alert alert-danger">Invalid Range</div>
-    <div [hidden]="startRange < Math.pow(10, digit)"  class="alert alert-danger">Too much value</div>
-    <!--<label><i>Note: Range MUST not exceed <strong>{{Math.pow(10, digit) - 1}}</strong></i></label>-->
-  </div>
-
-
-  <div class="form-group">
-    <label for="endRange">Range end from.</label>
-    <input type="number" class="form-control" id="endRange" required [(ngModel)] = "endRange" name="endRange">
-    <div [hidden]="endRange >= 1"  class="alert alert-danger">Value should start from 1</div>
-    <div [hidden]="endRange <= Math.pow(10, digit) - 1" class="alert alert-danger">Invalid End value</div>
-    <div [hidden]="(endRange - startRange) < 100000" class="alert alert-warning">Warning: range more than 100,000 could slow down your machine.</div>
-  </div>
-
-  <button type="submit" class="btn btn-success"  [disabled]="!heroForm.valid || startRange > endRange || endRange > Math.pow(10, digit) - 1 ">Submit</button>
-  <button type="button" class="btn" (click)="doReset()" >Reset</button>
-</form>
-
-<div *ngIf="submitted == false">
-  <div *ngIf="randomNumbers.length > 0">
-    <table class="table">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">Random Numbers with number of retry for duplicated number: {{noOfRetry}}</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let randomNumber of randomNumbers">
-          <td>{{randomNumber}}</td>
-
-      </tr>
-      </tbody>
-
-    </table>
-
-  </div>
-</div>
 
 
 
